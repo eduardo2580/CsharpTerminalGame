@@ -25,10 +25,6 @@ This project is a basic implementation of a Sokoban-like game that you can play 
 
 - .NET Core SDK
 
-## Screenshots
-
-(Add any relevant screenshots if needed)
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
