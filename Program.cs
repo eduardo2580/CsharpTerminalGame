@@ -20,7 +20,7 @@ namespace CommandLineGame
         {
             Console.Clear();
             while (Run()) { }
-            Console.WriteLine("\nBBye!");
+            Console.WriteLine("\nBye!");
         }
 
         private static bool Run()
@@ -61,7 +61,8 @@ namespace CommandLineGame
                 {
                     if (x == 0 || x == Cols - 1 || y == 0 || y == Rows - 1)
                     {
-                        _grid[y, x] = WallChar; continue;
+                        _grid[y, x] = WallChar;
+                        continue;
                     }
                     _grid[y, x] = TileChar;
                 }
@@ -76,14 +77,20 @@ namespace CommandLineGame
         {
             var rnd = new Random();
             var boxes = Enumerable.Range(0, 10).Select(_ => (X: rnd.Next(2, Cols - 2), Y: rnd.Next(2, Rows - 2))).ToArray();
-            foreach (var box in boxes) { _grid[box.Y, box.X] = ObstacleChar; }
+            foreach (var box in boxes)
+            {
+                _grid[box.Y, box.X] = ObstacleChar;
+            }
         }
 
         private static void PlaceCoins()
         {
             var rnd = new Random();
             var coinsPositions = Enumerable.Range(0, 5).Select(_ => (X: rnd.Next(1, Cols - 1), Y: rnd.Next(1, Rows - 1))).ToArray();
-            foreach (var coin in coinsPositions) { _grid[coin.Y, coin.X] = CoinChar; }
+            foreach (var coin in coinsPositions)
+            {
+                _grid[coin.Y, coin.X] = CoinChar;
+            }
         }
 
         private static void RenderGame()
@@ -95,7 +102,30 @@ namespace CommandLineGame
             {
                 for (var j = 0; j < _grid.GetLength(1); j++)
                 {
+                    ConsoleColor color;
+
+                    switch (_grid[i, j])
+                    {
+                        case ObstacleChar:
+                            color = ConsoleColor.Blue;
+                            break;
+                        case CoinChar:
+                            color = ConsoleColor.Yellow;
+                            break;
+                        case PlayerChar:
+                            color = ConsoleColor.Green;
+                            break;
+                        case WallChar:
+                            color = ConsoleColor.White;
+                            break;
+                        default:
+                            color = ConsoleColor.White;
+                            break;
+                    }
+
+                    Console.ForegroundColor = color;
                     Console.Write(_grid[i, j]);
+                    Console.ResetColor();
                 }
                 Console.Write("\n");
             }
@@ -149,7 +179,8 @@ namespace CommandLineGame
             _grid[player.Y, player.X] = TileChar;
             _grid[to.Y, to.X] = PlayerChar;
 
-            player.X = to.X; player.Y = to.Y;
+            player.X = to.X;
+            player.Y = to.Y;
         }
 
         private static bool CheckWinCondition()
