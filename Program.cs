@@ -19,8 +19,30 @@ namespace CommandLineGame
         public static void Main()
         {
             Console.Clear();
+            // Displaying a menu to start the game
+            DisplayMenu();
             while (Run()) { }
             Console.WriteLine("\nBye!");
+        }
+
+        // Function to display the menu
+        private static void DisplayMenu()
+        {
+            Console.WriteLine("Welcome to the Sokoban-like terminal game!");
+            Console.WriteLine("Press ENTER to start the game or ESC to quit.");
+            while (true)
+            {
+                var key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                    break;
+                }
+                if (key.Key == ConsoleKey.Escape)
+                {
+                    Environment.Exit(0);
+                }
+            }
         }
 
         private static bool Run()
@@ -189,4 +211,3 @@ namespace CommandLineGame
         }
     }
 }
-
